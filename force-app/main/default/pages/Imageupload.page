@@ -1,0 +1,61 @@
+<apex:page standardController="Contact" extensions="ContactImageUploadController" standardStylesheets="false">
+    <apex:form enctype="multipart/form-data">
+        <apex:pageMessages />
+        <apex:pageBlock title="Image Upload and Crop for Contact">
+            <apex:pageBlockSection >
+                <apex:inputFile value="{!fileBody}" filename="{!fileName}" id="fileInput"/>
+                <apex:actionRegion >
+                    <apex:commandButton value="Upload Image" action="{!upload}" status="uploadStatus"/>
+                </apex:actionRegion>
+                <apex:actionStatus id="uploadStatus" startText="Uploading..." stopText=""/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="cropSection" rendered="{!showCrop}">
+                <apex:outputPanel >
+                    <img src="{!filePreview}" id="uploadedImage" style="max-width: 100%;"/>
+                </apex:outputPanel>
+                
+                <!-- Include jQuery and Cropper.js libraries -->
+                <apex:includeScript value="https://code.jquery.com/jquery-3.6.0.min.js" />
+                <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" />
+                <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+
+                <!-- Crop Button -->
+                <apex:commandButton value="Crop Image" onclick="cropImageFunction(); return false;" reRender="messages"/>
+                
+                <!-- Cropper.js Script -->
+                <script>
+                    var cropper;
+                    $(document).ready(function() {
+                        var image = document.getElementById('uploadedImage');
+                        cropper = new Cropper(image, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 1,
+                        });
+                    });
+
+                    function cropImageFunction() {
+                        var croppedCanvas = cropper.getCroppedCanvas();
+                        var croppedImage = croppedCanvas.toDataURL();
+                        // Use Visualforce remoting to send the cropped image data to the controller
+                        ContactImageUploadController.saveCroppedImage(croppedImage, function(result, event) {
+                            if(event.status) {
+                                alert('Image cropped and saved successfully!');
+                                location.reload(); // Reload the page to refresh the image display
+                            } else {
+                                alert('Error cropping image: ' + event.message);
+                            }
+                        });
+                    }
+                </script>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Uploaded Image" rendered="{!attachmentId != null}">
+                <apex:outputPanel >
+                    <img src="/servlet/servlet.FileDownload?file={!attachmentId}" style="max-width: 100%;"/>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

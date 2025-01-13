@@ -1,0 +1,127 @@
+<apex:page controller="WeatherAppController" standardStylesheets="false">
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .weather-widget {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            max-width: 800px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .weather-widget h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .weather-widget .weather-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .weather-widget .weather-info div {
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .weather-widget .temp {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        .weather-widget .description {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .weather-widget .weather-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 12px;
+        }
+
+        .weather-widget .extra-info {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .weather-widget .error-message {
+            color: #ff0000;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .weather-widget .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .weather-widget .button-container .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .weather-widget .button-container .btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-widget .button-container .btn:active {
+            background-color: #003f7f;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <div class="container">
+        <div class="weather-widget">
+            <apex:form >
+                <apex:pageMessages />
+                <apex:pageBlock title="Weather Information">
+                    <apex:pageBlockSection columns="1">
+                        <apex:inputText value="{!city}" label="Enter City Name" required="true" />
+                        <div class="button-container">
+                            <apex:commandButton action="{!getWeather}" value="Get Weather" styleClass="btn" />
+                            <apex:commandButton action="{!getWeather}" value="Refresh" styleClass="btn" />
+                        </div>
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection rendered="{!NOT(ISBLANK(weatherInfo))}">
+                        <div class="weather-info">
+                            <h3>Weather Information for {!city}</h3>
+                            <img class="weather-icon" src="{!$Resource.weather_placeholder}" alt="Weather Icon" />
+                            <div class="temp">Temperature: {!temperature}°C</div>
+                            <div class="description">Description: {!description}</div>
+                            <div class="extra-info">Humidity: {!humidity}% | Pressure: {!pressure} hPa</div>
+                        </div>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:form>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,14 @@
+<apex:page >
+    <apex:pageBlock title="Hello">
+       <apex:pageBlockSection title="Section Display" columns="2">
+        <apex:pageBlockSectionItem >
+            Item 1
+           </apex:pageBlockSectionItem>
+              <apex:pageBlockSectionItem >
+            Item 2
+           </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection rendered="false">
+        Section 2</apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

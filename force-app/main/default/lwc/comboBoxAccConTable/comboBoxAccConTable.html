@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title=" Combo Box for Account Contact">
+        <lightning-combobox
+        label="Combo box Account"
+        value="value"
+        placeholder="select Account"
+        onchange={handleChange}
+        options={options}
+        ></lightning-combobox>
+
+        <div>
+            <h2><b>Value is </b> {value}</h2>
+        </div>
+    </lightning-card>
+    <template if:true={showContact}>
+        <lightning-card title="Contact Data Table">
+            <lightning-datatable
+            key-field="Id"
+            data={data}
+            columns={columns}
+            ></lightning-datatable>
+            </lightning-card>
+        </template>
+    
+</template>

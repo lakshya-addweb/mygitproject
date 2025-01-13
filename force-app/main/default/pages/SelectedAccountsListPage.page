@@ -1,0 +1,13 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="SelectedAccountsListController">
+<apex:form >
+<apex:pageBlock title="Selected Accounts">
+<apex:pageBlockTable value="{!selectedAccounts}" var="acc">
+<apex:column value="{!acc.Id}" headerValue="Account ID"/>
+<apex:column value="{!acc.Name}" headerValue="Account Name"/>
+<apex:column value="{!acc.Industry}" headerValue="Industry"/>
+<apex:column value="{!acc.Type}" headerValue="Type"/>
+<!-- Add other columns as needed -->
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

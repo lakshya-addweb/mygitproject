@@ -1,0 +1,122 @@
+<apex:page standardStylesheets="false">
+<apex:includeScript value="//code.jquery.com/jquery-3.5.1.min.js" />
+<apex:includeScript value="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" />
+<apex:stylesheet value="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+<div class="container mt-5">
+    <h2 class="mb-4">I am Over Uhh Form</h2>
+    <div class="form-group">
+        <label for="country">Country:</label>
+        <select class="form-control" id="country" onchange="getStates()">
+            <option>Select Country</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="state">State:</label>
+        <select class="form-control" id="state" onchange="getCities()">
+            <option>Select State</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="city">City:</label>
+        <select class="form-control" id="city">
+            <option>Select City</option>
+        </select>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    getCountries();
+});
+
+function getCountries() {
+    var settings = {
+        "url": "https://api.countrystatecity.in/v1/countries",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "accept": "application/json",
+            "X-CSCAPI-KEY": "ODRIazZZeGpGZDV5ZVFxa1k4VmhyUDJrckNldlViNDlqemhYZWI0TA=="
+        },
+    };
+
+    $.ajax(settings).done(function(response) {
+        console.log('Countries fetched:', response);
+        var countrySelect = document.getElementById('country');
+        var countryOptions = '<option>Select Country</option>';
+
+        response.forEach(function(country) {
+            countryOptions += `<option value="${country.iso2}">${country.name}</option>`;
+        });
+        countrySelect.innerHTML = countryOptions;
+
+        // Set default country to India
+        countrySelect.value = 'IN';
+        getStates();
+    });
+}
+
+function getStates() {
+    var countryIso = document.getElementById('country').value;
+    if (countryIso === 'Select Country') return;
+
+    var settings = {
+        "url": "https://api.countrystatecity.in/v1/countries/" + countryIso + "/states",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "accept": "application/json",
+            "X-CSCAPI-KEY": "ODRIazZZeGpGZDV5ZVFxa1k4VmhyUDJrckNldlViNDlqemhYZWI0TA=="
+        },
+    };
+
+    $.ajax(settings).done(function(response) {
+        console.log('States fetched:', response);
+        var stateSelect = document.getElementById('state');
+        var stateOptions = '<option>Select State</option>';
+
+        response.forEach(function(state) {
+            stateOptions += `<option value="${state.iso2}">${state.name}</option>`;
+        });
+        stateSelect.innerHTML = stateOptions;
+
+        // Set default state to None
+        stateSelect.value = 'Select State';
+
+        // Clear cities dropdown
+        document.getElementById('city').innerHTML = '<option>Select City</option>';
+    });
+}
+
+function getCities() {
+    var countryIso = document.getElementById('country').value;
+    var stateIso = document.getElementById('state').value;
+    if (stateIso === 'Select State') return;
+
+    var settings = {
+        "url": "https://api.countrystatecity.in/v1/countries/" + countryIso + "/states/" + stateIso + "/cities",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "accept": "application/json",
+            "X-CSCAPI-KEY": "ODRIazZZeGpGZDV5ZVFxa1k4VmhyUDJrckNldlViNDlqemhYZWI0TA=="
+        },
+    };
+
+    $.ajax(settings).done(function(response) {
+        console.log('Cities fetched:', response);
+        var citySelect = document.getElementById('city');
+        var cityOptions = '<option>Select City</option>';
+
+        response.forEach(function(city) {
+            cityOptions += `<option value="${city.name}">${city.name}</option>`;
+        });
+        citySelect.innerHTML = cityOptions;
+    });
+}
+</script>
+
+</apex:page>

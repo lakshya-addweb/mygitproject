@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Arithmetic Operation Publisher">
+        <div class="slds-var-m-around_medium">
+            <lightning-combobox label="Operation"
+                                value={operation}
+                                placeholder="Select Operation"
+                                options={operations}
+                                onchange={handleOperationChange}>
+            </lightning-combobox>
+            <lightning-input label="Input 1" type="number" value={input1} onchange={handleInputChange1}></lightning-input>
+            <lightning-input label="Input 2" type="number" value={input2} onchange={handleInputChange2}></lightning-input>
+            <lightning-button label="Send Operation" onclick={publishMessage}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

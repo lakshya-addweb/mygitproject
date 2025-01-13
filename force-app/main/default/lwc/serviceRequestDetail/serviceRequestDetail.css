@@ -1,0 +1,38 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.field-container {
+    margin-bottom: 15px;
+}
+
+.error-container {
+    padding: 20px;
+    border: 1px solid #e26a6a;
+    background-color: #fbeaea;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.lightning-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.slds-box.slds-theme_default {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slds-card__header-title {
+    font-weight: bold;
+}
+
+.slds-grid {
+    gap: 10px;
+}

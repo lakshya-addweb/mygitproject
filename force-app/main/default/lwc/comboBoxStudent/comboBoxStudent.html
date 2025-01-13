@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Lwc Combo Box for student">
+        <lightning-combobox
+        label="Combo box Student"
+        placeholder="select Student"
+        onchange={handleChange}
+        options={options}
+        ></lightning-combobox>
+
+        <div>
+            <h2><b>Value is </b> {value}</h2>
+        </div>
+    </lightning-card>
+    
+</template>

@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Opportunities" icon-name="standard:opportunity">
+        <div class="slds-m-around_medium">
+            <lightning-datatable
+                key-field="Id"
+                data={opportunityData}
+                columns={columns}
+                hide-checkbox-column="true"
+                onrowaction={handleRowAction}
+                is-loading={isLoading}
+                class="slds-m-top_medium"
+            ></lightning-datatable>
+        </div>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading Opportunities"></lightning-spinner>
+        </template>
+    </lightning-card>
+</template>

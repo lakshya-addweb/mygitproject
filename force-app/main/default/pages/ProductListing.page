@@ -1,0 +1,106 @@
+<apex:page controller="ProductListingController" standardStylesheets="false">
+    <!-- Custom Stylesheet -->
+    <apex:stylesheet value="{!URLFOR($Resource.mystyle)}"/>
+    
+    <!-- Bootstrap CSS -->
+    <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <apex:includeScript value="//code.jquery.com/jquery-3.6.0.min.js" />
+    
+    <!-- Bootstrap JS -->
+    <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+
+    <!-- Page Container -->
+    <div class="container-fluid d-flex flex-column" style="min-height: 100vh; padding: 0;">
+        <!-- Header -->
+        <div class="container-fluid" style="background-color: #d1ecf1; padding: 20px 0;">
+            <div class="container">
+                <div class="row">
+                    <!-- Logo -->
+                    <div class="col-md-4">
+                        <img src="{!URLFOR($Resource.AddwebLogo)}" alt="Your Logo" style="max-height: 70px;" />
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="col-md-4 text-center">
+                        <apex:form >
+                            <div class="input-group">
+                                <apex:inputText value="{!searchKeyword}" styleClass="form-control" html-placeholder="Search products..." />
+                                <span class="input-group-btn">
+                                    <apex:commandButton value="Search" action="{!searchProducts}" styleClass="btn btn-default" />
+                                </span>
+                            </div>
+                        </apex:form>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <div class="col-md-4 text-right">
+                        <apex:outputLink value="{!URLFOR($Page.ViewCartPage)}" style="text-decoration: none; color: #333;">
+                            <span class="glyphicon glyphicon-shopping-cart" style="font-size: 20px;"></span> 
+                            <strong>Cart (<apex:outputText value="{!cartSize}" id="cartSize" />)</strong>
+                        </apex:outputLink>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area with Flex to push footer down -->
+        <div class="flex-grow-1 container" style="margin-top: 20px; overflow-y: auto;">
+            <div class="row" id="productListPanel">
+                <apex:outputPanel rendered="{!NOT(ISNULL(products)) && products.size > 0}">
+                    <apex:form id="productForm">
+                        <apex:repeat value="{!products}" var="product">
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body text-center">
+                                        <!-- Product Image -->
+                                        <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
+                                            <apex:image url="{!product.ImageURL__c}" style="max-height: 100%; max-width: 100%;" styleClass="img-responsive" />
+                                        </div>
+                                        
+                                        <!-- Product Name -->
+                                        <h4 class="product-name">{!product.Name}</h4>
+
+                                        <!-- Product Price -->
+                                        <p class="product-price" style="font-size: 16px; color: #f15a22;">Rs {!product.Price__c}</p>
+
+                                        <!-- Quantity Dropdown -->
+                                        <apex:selectList value="{!selectedQuantities[product.Id]}" size="1" styleClass="form-control">
+                                            <apex:selectOptions value="{!quantityOptions}" />
+                                        </apex:selectList>
+
+                                        <!-- Add to Cart Button -->
+                                        <apex:commandButton value="Add to Cart" action="{!addToCart}" rerender="productListPanel,cartSize" styleClass="btn btn-primary btn-block" style="margin-top: 10px;">
+                                            <apex:param name="productId" value="{!product.Id}" assignTo="{!selectedProductId}" />
+                                        </apex:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:repeat>
+                    </apex:form>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!ISNULL(products) || products.size == 0}">
+                    <div class="alert alert-warning" role="alert" style="margin-top: 20px;">
+                        No products found.
+                    </div>
+                </apex:outputPanel>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="container-fluid" style="background-color: #d1ecf1; padding: 20px 0;">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Logo -->
+                    <div class="col-md-6">
+                        <img src="{!URLFOR($Resource.AddwebLogo)}" alt="Your Logo" style="max-height: 70px;" />
+                    </div>
+
+                    <!-- Footer Text -->
+                    <div class="col-md-6 text-right">
+                        <p style="margin: 0;">© Addweb Solution, All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:page>

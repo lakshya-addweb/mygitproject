@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Leads" icon-name="standard:lead">
+        <div class="slds-m-around_medium">
+            <lightning-datatable
+                key-field="Id"
+                data={leadData}
+                columns={columns}
+                hide-checkbox-column
+                onrowaction={handleRowAction}
+                class="slds-m-top_medium"
+            ></lightning-datatable>
+        </div>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading Leads"></lightning-spinner>
+        </template>
+    </lightning-card>
+</template>

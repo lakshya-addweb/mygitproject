@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Student record list">
+        <lightning-datatable
+        key-field="Id"
+        data={data}
+        columns={columns}
+    
+      ></lightning-datatable>
+      <div style="display: flex; justify-content: center; padding: 10px;">
+        <lightning-button label="Submit" variant="brand" onclick={handleClick}></lightning-button>
+    </div>
+    
+    </lightning-card>
+    
+</template>

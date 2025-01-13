@@ -1,0 +1,24 @@
+:host {
+    display: block;
+}
+
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+.lightning-datatable {
+    font-size: 0.875rem;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    --slds-c-text-link-font-weight: normal; /* Ensures consistent font weight for links */
+}
+
+/* Remove text wrapping and clipping */
+.slds-table_cell-wrap {
+    white-space: normal; /* Allows text to wrap instead of clipping */
+    overflow: visible;   /* Ensures no clipping or ellipsis */
+    text-overflow: initial;
+}
+.slds-dropdown__list.slds-dropdown_length-with-icon-10 {
+    display: none; /* Hides the dropdown */
+}

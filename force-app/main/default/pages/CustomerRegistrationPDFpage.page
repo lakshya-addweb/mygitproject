@@ -1,0 +1,15 @@
+<apex:page renderAs="pdf" controller="CustomerRegistrationController" showHeader="false" sidebar="false">
+    <apex:form >
+       
+        <table class="customer-table">
+            <tr><th>Field</th><th>Value</th></tr>
+            <tr><td>Name:</td><td>{!customerr.Name__c}</td></tr>
+            <tr><td>Email:</td><td>{!customerr.Email__c}</td></tr>
+            <tr><td>Phone:</td><td>{!customerr.Phone__c}</td></tr>
+            <tr><td>Country:</td><td>{!customerr.Country__c}</td></tr>
+            <tr><td>State:</td><td>{!customerr.State__c}</td></tr>
+            <tr><td>City:</td><td>{!customerr.City__c}</td></tr>
+            <tr><td>Zipcode:</td><td>{!customerr.Pincode__c}</td></tr>
+        </table>
+    </apex:form>
+</apex:page>

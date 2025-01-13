@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Accounts" icon-name="standard:account">
+        <div class="slds-m-around_medium">
+            <lightning-datatable
+                key-field="Id"
+                data={accountData}
+                columns={columns}
+                hide-checkbox-column="true"
+                onrowaction={handleRowAction}
+                is-loading={isLoading}
+                class="slds-m-top_medium"
+            ></lightning-datatable>
+        </div>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading Accounts"></lightning-spinner>
+        </template>
+    </lightning-card>
+</template>

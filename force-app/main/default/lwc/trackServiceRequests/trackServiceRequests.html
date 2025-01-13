@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Track Your Service Requests" icon-name="standard:service_request">
+        <div class="slds-m-around_medium">
+            <!-- Display a spinner while loading data -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Display the list of service requests -->
+            <template if:true={serviceRequests.length}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={serviceRequests}
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </template>
+
+            <!-- Display message if no service requests are found -->
+            <template if:false={serviceRequests.length}>
+                <p>No service requests found.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

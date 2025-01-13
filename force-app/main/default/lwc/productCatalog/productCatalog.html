@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Product Catalog" icon-name="standard:product">
+        <div class="product-catalog-grid">
+            <template if:true={products}>
+                <template for:each={products} for:item="product">
+                    <div key={product.Id} class="product-card">
+                        <lightning-card>
+                            <div class="product-card-content">
+                                <img src={product.Image__c} alt={product.Product_Name__c} class="product-image"/>
+                                <h2 class="product-name">{product.Product_Name__c}</h2>
+                                <lightning-button label="View Details" onclick={handleViewDetails} data-id={product.Id} class="view-details-button"></lightning-button>
+                            </div>
+                        </lightning-card>
+                    </div>
+                </template>
+            </template>
+            <template if:false={products}>
+                <div class="no-products-found">No products found.</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

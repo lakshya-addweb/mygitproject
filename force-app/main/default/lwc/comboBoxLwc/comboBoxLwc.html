@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Lwc Combo Box">
+        <lightning-combobox
+        label="Combo box"
+        value="value"
+        placeholder="select Account"
+        onchange={handleChange}
+        options={options}
+        ></lightning-combobox>
+
+        <div>
+            <h2><b>Selected Student Id  is </b> {value}</h2>
+        </div>
+    </lightning-card>
+    
+</template>

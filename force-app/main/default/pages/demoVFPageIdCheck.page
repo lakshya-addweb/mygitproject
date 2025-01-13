@@ -1,0 +1,21 @@
+<apex:page id="demopage" applyHtmlTag="true" controller="demoApexController">
+    <apex:includeScript value="//code.jquery.com/jquery-3.5.1.min.js" />
+<apex:form id="demoform">
+<apex:pageBlock title="Selected Accounts" id="demopb">
+   <apex:selectList value="{!selectedCountry}" id="country" size="1" onchange="getStates()">
+            <apex:selectOptions value="{!countryOptions}"/>
+        </apex:selectList>
+</apex:pageBlock>
+</apex:form>
+<script>
+$(document).ready(function() {
+    
+    })
+function getStates(){
+    var country = document.getElementById('demopage:demoform:demopb:country').value;
+    //var newco = $("#demopage:demoform:demopb:country").val();  
+    console.log(country);
+    //console.log(newco);
+}
+</script>
+</apex:page>

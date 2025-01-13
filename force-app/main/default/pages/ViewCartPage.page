@@ -1,0 +1,109 @@
+<apex:page controller="CartController" standardStylesheets="false">
+    <!-- Including Bootstrap CSS and JS -->
+    <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <apex:includeScript value="//code.jquery.com/jquery-3.6.0.min.js" />
+    <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+    <apex:stylesheet value="{!URLFOR($Resource.mystyle)}"/>
+    
+    <!-- Header -->
+    <div class="container-fluid" style="background-color: #d1ecf1; padding: 25px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 logo">
+                    <img src="{!URLFOR($Resource.AddwebLogo)}" alt="Addweb Logo" style="max-height: 70px;" />
+                </div>
+                <div class="col-md-6 cart-icon text-right">
+                    <apex:outputLink value="{!URLFOR($Page.ViewCartPage)}" style="text-decoration: none; color: #333;">
+                        <span class="glyphicon glyphicon-shopping-cart" style="font-size: 20px;"></span>
+                        <strong>Cart (<apex:outputText value="{!cartSize}" id="cartSize" />)</strong>
+                    </apex:outputLink>
+                    <div class="col-md-6 cart-icon text-right">      
+                        <apex:outputLink value="{!URLFOR($Page.ProductListing)}" style="text-decoration: none; color: #333;">
+                            <span class="glyphicon glyphicon-home" style="font-size: 20px;"></span>
+                            <strong>Home</strong>
+                        </apex:outputLink>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Form -->
+    <apex:form id="cartForm">
+        <div class="container-fluid" style="margin-top: 20px; padding-bottom: 80px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Your Cart</h3>
+                </div>
+                <div class="panel-body">
+                    <apex:outputPanel id="cartPanel">
+                        <apex:variable var="hasItems" value="{!cartSize > 0}" />
+                        <apex:outputPanel rendered="{!hasItems}">
+                            <table class="table table-bordered table-hover" style="width: 100%; margin: 0;">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!cartItems}" var="item">
+                                        <tr>
+                                            <td><apex:outputText value="{!item.Product__r.Name}" /></td>
+                                            <td><apex:outputText value="{!item.Quantity__c}" /></td>
+                                            <td><apex:outputText value="Rs {!item.Product__r.Price__c}" /></td>
+                                            <td><apex:outputText value="Rs {!item.Product__r.Price__c*item.Quantity__c}" /></td>
+                                            <td>
+                                                <apex:commandButton value="Remove" action="{!removeFromCart}" rerender="cartPanel, totalAmount, cartSize" styleClass="btn btn-danger">
+                                                    <apex:param name="itemId" value="{!item.Id}" assignTo="{!selectedItemId}" />
+                                                </apex:commandButton>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                            <div class="text-right" style="margin-top: 10px;">
+                                <apex:outputText value="Total Amount: Rs {!totalAmount}" id="totalAmount" style="font-size: 18px; font-weight: bold;" />
+                            </div>
+                            <div class="text-right" style="margin-top: 20px;">
+                                <apex:commandButton value="Place Order" action="{!placeOrder}" rerender="cartPanel, cartForm, totalAmount, cartSize" styleClass="btn btn-success" />
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(hasItems) && orderGenerated=false}">
+                            <div class="alert alert-warning" role="alert">
+                                Your cart is empty. Please select products to add to your cart.
+                                <apex:commandButton action="{!URLFOR($Page.ProductListing)}" value="Add Product" styleClass="btn btn-primary btn-block" style="margin-top: 10px;">
+                                    
+                                </apex:commandButton>
+                            </div>
+                            
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!orderGenerated=true}">
+                            <div class="alert alert-success" role="alert">
+                                Order placed successful.
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </div>
+        <apex:pageMessages id="messages" />
+    </apex:form>
+    
+    <!-- Footer -->
+    <div class="container-fluid" style="background-color: #d1ecf1; padding: 20px 0; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 footer-logo">
+                    <img src="{!URLFOR($Resource.AddwebLogo)}" alt="Your Logo" style="max-height: 70px;" />
+                </div>
+                <div class="col-md-6 text-right">
+                    <p>© Addweb Solution</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:page>

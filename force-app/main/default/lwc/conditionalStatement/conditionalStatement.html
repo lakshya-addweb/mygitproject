@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Conditional Rendering">
+<div>
+    <p lwc:if={property1}>Statement 1 </p>
+    <p lwc:elseif={property2}>Statement 2 </p>
+    <p lwc:else>Statement 3</p>
+    
+</div>
+<lightning-button variant="brand" label={buttonlabel} onclick={changeButtonLabel}></lightning-button>
+    </lightning-card>
+    
+</template>

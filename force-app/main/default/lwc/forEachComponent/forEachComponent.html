@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Student data by ForEach">
+        <template if:true={Student.data}>
+        <template for:each={Student.data} for:item="Student">
+            <h3 key={Student.Id}>{Student.Name__c} , {Student.Id} </h3>
+        </template>
+        </template>
+        <template if:true={Student.error}>
+            {Student.Error}
+        </template>
+    </lightning-card>
+    
+</template>

@@ -1,0 +1,21 @@
+<apex:page standardController="Contact" extensions="FileUploadController">
+<apex:slds />
+<div class="slds-scope slds-align_absolute-center">
+<apex:form enctype="multipart/form-data" >
+<apex:messages />
+<apex:pageBlock title="File Upload" >
+<apex:pageBlockSection columns="1">
+<apex:pageBlockSectionItem >
+<apex:outputLabel > Title </apex:outputLabel>
+<apex:inputText value="{!title}"/>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputLabel > File Upload </apex:outputLabel>
+<apex:inputFile value="{!file}" fileName="{!fileName}" />
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+<apex:commandbutton action="{!upload}" value="Upload" status="status"/>
+</apex:pageBlock>
+</apex:form>
+</div>
+</apex:page>

@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="Service Request Details" icon-name="standard:service_request">
+        <div class="slds-box slds-theme_default">
+            <!-- Spinner while loading -->
+            <template if:true={isLoading}>
+                <div class="spinner-container">
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Display Service Request Details -->
+            <template if:true={serviceRequestAvailable}>
+                <lightning-record-view-form record-id={recordId} object-api-name="Service_Request__c">
+                    <div class="slds-grid slds-wrap">
+                        <!-- Field Styling for a neat display -->
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Title__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Customer__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Product__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Service_Center__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Service_Date__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Service_Location__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Status__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Service_Type__c"></lightning-output-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-horizontal_small field-container">
+                            <lightning-output-field field-name="Description__c"></lightning-output-field>
+                        </div>
+                    </div>
+                </lightning-record-view-form>
+            </template>
+
+            <!-- Error Message -->
+            <template if:true={hasError}>
+                <div class="error-container slds-text-color_error">
+                    <p>Error loading Service Request. Please check your access or try again later.</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

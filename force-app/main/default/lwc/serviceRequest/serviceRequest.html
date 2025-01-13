@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Create a Service Request" icon-name="standard:service_request">
+        <div class="slds-p-around_medium">
+            <template if:true={isFormVisible}>
+                <lightning-record-edit-form 
+                    object-api-name="Service_Request__c" 
+                    onsuccess={handleSuccess} 
+                    onsubmit={handleSubmit}>
+                    
+                    <!-- Title Field -->
+                    <lightning-input-field field-name="Title__c" required></lightning-input-field>
+    
+                    <!-- Product Field -->
+                    <lightning-input-field field-name="Product__c" required></lightning-input-field>
+    
+                    <!-- Service Type Field -->
+                    <lightning-input-field field-name="Service_Type__c" required></lightning-input-field>
+    
+                    <!-- Service Location Field -->
+                    <lightning-input-field field-name="Service_Location__c" required></lightning-input-field>
+    
+                    <!-- Description Field -->
+                    <lightning-input-field field-name="Description__c" required></lightning-input-field>
+    
+                    <!-- Service Date Field -->
+                    <lightning-input-field field-name="Service_Date__c" required></lightning-input-field>
+    
+                    <!-- Submit Button -->
+                    <lightning-button variant="brand" label="Submit" type="submit"></lightning-button>
+    
+                </lightning-record-edit-form>
+            </template>
+            <template if:false={isFormVisible}>
+                <lightning-formatted-text value="Your Service Request has been created successfully. You can Track your request in Track Services"></lightning-formatted-text>
+            </template>
+        </div>
+    </lightning-card>
+</template>

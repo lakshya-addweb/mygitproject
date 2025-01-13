@@ -1,0 +1,127 @@
+<apex:page controller="CustomerRegistrationController" sidebar="false" showHeader="false" standardStylesheets="false" >
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-primary:hover, .btn-secondary:hover, .btn-success:hover {
+            opacity: 0.8;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <div class="container">
+        <apex:form >
+            <apex:pageMessages />
+
+            <apex:outputPanel rendered="{!step == '1'}">
+                <h2>Step 1: Personal Details</h2>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <apex:inputText value="{!customerr.Name__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <apex:inputText value="{!customerr.Email__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <apex:inputText value="{!customerr.Phone__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Profile Pic</label>
+                    <apex:inputText value="{!customerr.Photo__c}" styleClass="form-control"/>
+                </div>
+                <apex:commandButton value="Next" action="{!nextStep}" styleClass="btn btn-primary"/>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!step == '2'}">
+                <h2>Step 2: Address Details</h2>
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <apex:inputText value="{!customerr.Country__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">State</label>
+                    <apex:inputText value="{!customerr.State__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">City</label>
+                    <apex:inputText value="{!customerr.City__c}" styleClass="form-control" required="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Pincode</label>
+                    <apex:inputText value="{!customerr.Pincode__c}" styleClass="form-control" required="true"/>
+                </div>
+                <apex:commandButton value="Previous" action="{!previousStep}" styleClass="btn btn-secondary"/>
+                <apex:commandButton value="Next" action="{!nextStep}" styleClass="btn btn-primary"/>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!step == '3'}">
+                <h2>Step 3: Preview Details</h2>
+                <p><strong>Name:</strong> {!customerr.Name__c}</p>
+                <p><strong>Email:</strong> {!customerr.Email__c}</p>
+                <p><strong>Phone:</strong> {!customerr.Phone__c}</p>
+                <p><strong>Country:</strong> {!customerr.Country__c}</p>
+                <p><strong>State:</strong> {!customerr.State__c}</p>
+                <p><strong>City:</strong> {!customerr.City__c}</p>
+                <p><strong>Zipcode:</strong> {!customerr.Pincode__c}</p>
+                <apex:commandButton value="Previous" action="{!previousStep}" styleClass="btn btn-secondary"/>
+                <apex:commandButton value="Register" action="{!save}" styleClass="btn btn-success"/>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!step == '4'}">
+                <h2>Customer Registered Successfully</h2>
+                <p>Your customer has been registered successfully.</p>
+                <apex:commandButton value="Download PDF" action="{!downloadPDF}" styleClass="btn btn-primary"/>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!isDuplicate}">
+                <p style="color:red;">A customer with this email already exists.</p>
+            </apex:outputPanel>
+        </apex:form>
+    </div>
+</apex:page>

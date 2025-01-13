@@ -1,0 +1,152 @@
+<apex:page controller="RelatedProductsController" showHeader="false">
+    <apex:form >
+        <apex:pageMessages />
+
+        <style>
+            /* General styling */
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #e9ecef;
+                color: #495057;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Page title styling */
+            .page-title {
+                text-align: center;
+                font-size: 28px;
+                font-weight: 600;
+                margin: 30px 0;
+                color: #343a40;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border-bottom: 2px solid #007bff;
+                padding-bottom: 10px;
+            }
+
+            /* Container for product tiles */
+            .product-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding-bottom: 60px; /* Space for footer */
+            }
+
+            /* Product tile styling */
+            .product-tile {
+                display: inline-block;
+                width: 22%;
+                margin: 1.5%;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                background-color: #ffffff;
+                border-radius: 15px;
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            }
+
+            /* Hover effect */
+            .product-tile:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            /* Product image styling */
+            .product-tile img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            /* Product image hover effect */
+            .product-tile:hover img {
+                transform: scale(1.05);
+            }
+
+            /* Product name styling */
+            .product-tile h3 {
+                margin: 0 0 10px 0;
+                font-size: 20px;
+                font-weight: 700;
+                color: #212529;
+            }
+
+            /* Product details styling */
+            .product-tile p {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+                color: #6c757d;
+            }
+
+            /* Link styling */
+            .product-tile a {
+                text-decoration: none;
+                color: #007bff;
+                transition: color 0.3s ease-in-out;
+            }
+
+            /* Link hover effect */
+            .product-tile a:hover {
+                color: #0056b3;
+            }
+
+            /* Footer styling */
+            .footer {
+                text-align: center;
+                padding: 15px;
+                background-color: #007bff;
+                color: white;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                font-size: 14px;
+                font-weight: 500;
+            }
+        </style>
+
+        <!-- Page Title -->
+        <div class="page-title">
+            Product Catalog
+        </div>
+
+        <!-- Container for product tiles -->
+        <div class="product-container">
+            <apex:repeat value="{!relatedProducts}" var="product">
+                <div class="product-tile">
+                    <!-- Product Image -->
+                    <apex:outputLink value="/{!product.Id}" title="View Product Details">
+                        <apex:image value="{!product.Image__c}" />
+                    </apex:outputLink>
+
+                    <!-- Product Name and Product Details, centered, on separate lines, and bold -->
+                    
+                        
+                   
+                    <h3>
+                        <p>
+                        <apex:outputLink value="/{!product.Id}" title="View Product Details">
+                           {!product.Name}
+                        </apex:outputLink>
+                            </p>
+                    </h3> 
+                    
+                    <b><p>
+                        
+                        
+                        <apex:outputLink value="/{!product.Id}" title="View Product Details">
+                             Product Name :{!product.Product_Name__c}
+                        </apex:outputLink></p>
+                    </b>
+                </div>
+            </apex:repeat>
+        </div>
+
+       
+    </apex:form>
+</apex:page>

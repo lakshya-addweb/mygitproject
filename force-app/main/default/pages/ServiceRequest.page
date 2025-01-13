@@ -1,0 +1,36 @@
+<apex:page standardController="Service_Request__c" extensions="ServiceRequestExtension" showHeader="false">
+    <apex:form >
+        <!-- Display any page messages like errors or success messages -->
+        <apex:pageMessages />
+
+        <!-- Main content container -->
+        <apex:pageBlock title="Create a Service Request" mode="edit">
+            <apex:pageBlockSection columns="1">
+                 <!-- Service Number (Auto Number Field) - Display only -->
+                <apex:outputField value="{!Service_Request__c.Service_Number__c}"/>
+
+                <!-- Product Field -->
+                <apex:inputField value="{!Service_Request__c.Product__c}" required="true"/>
+
+                <!-- Service Type Field -->
+                <apex:inputField value="{!Service_Request__c.Service_Type__c}" required="true"/>
+
+                <!-- Service Location Field -->
+                <apex:inputField value="{!Service_Request__c.Service_Location__c}" required="true"/>
+
+                <!-- Description Field -->
+                <apex:inputField value="{!Service_Request__c.Description__c}" required="true"/>
+
+                
+
+                <!-- Service Date Field -->
+                <apex:inputField value="{!Service_Request__c.Service_Date__c}" required="true"/>
+            </apex:pageBlockSection>
+
+            <!-- Submit Button -->
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Submit" action="{!save}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
